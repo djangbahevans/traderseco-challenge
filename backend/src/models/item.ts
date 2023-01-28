@@ -22,6 +22,7 @@ interface IShoeModel extends mongoose.Model<IShoeDocument> {
   build(attrs: IShoeAttrs): IShoeDocument;
 }
 
+// Define the schema for the Shoe model
 const shoeSchema = new mongoose.Schema(
   {
     name: {
@@ -64,7 +65,7 @@ const shoeSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
-      min: [0, "Price must be greater than 0"]
+      min: [0, "Price must be greater than 0"],
     },
     ownerId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -81,11 +82,12 @@ const shoeSchema = new mongoose.Schema(
   }
 );
 
+// Index name, description and manufacturer fields for text search
 shoeSchema.index({ name: "text", description: "text", manufacturer: "text" });
 
+// Before saving the shoe, sort sizes in ascending order and remove duplicates
 shoeSchema.pre("save", async function (done) {
   if (this.isModified("sizes")) {
-    // Sort sizes in ascending order and remove duplicates
     this.set("sizes", [...new Set(this.get("sizes").sort())]);
 
     // Set updatedAt to current date
@@ -95,10 +97,12 @@ shoeSchema.pre("save", async function (done) {
   done();
 });
 
+// Build method for creating a new Shoe instance
 shoeSchema.statics.build = (attrs: IShoeAttrs) => {
   return new Shoe(attrs);
 };
 
+// Create the Shoe model and export it
 const Shoe = mongoose.model<IShoeDocument, IShoeModel>("Shoe", shoeSchema);
 
 export { Shoe };

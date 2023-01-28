@@ -13,6 +13,7 @@ const router = express.Router();
 router.put(
   "/:id",
   requireAuth,
+  // Validate the request body for required fields
   [
     body("name").not().isEmpty().withMessage("Name is required"),
     body("price")
@@ -26,19 +27,24 @@ router.put(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
+    // Find the shoe by id
     const shoe = await Shoe.findById(req.params.id);
 
+    // If the shoe is not found, throw a NotFoundError
     if (!shoe) {
       throw new NotFoundError();
     }
 
+    // Check if the authenticated user is the owner of the shoe
     if (shoe.ownerId.toString() !== req.user!.id) {
       throw new NotAuthorizedError();
     }
 
+    // Update the shoe with the new data
     shoe.set({ ...req.body, ownerId: req.user!.id });
     await shoe.save();
 
+    // Send the updated shoe as the response
     res.status(201).send(shoe);
   }
 );
