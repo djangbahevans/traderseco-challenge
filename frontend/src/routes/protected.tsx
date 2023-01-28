@@ -1,4 +1,3 @@
-// import { lazyImport } from "@/utils/lazyImports";
 import { Navigate } from "react-router-dom";
 import { lazyImport } from "../utils/lazyImports";
 
@@ -11,14 +10,10 @@ const { ItemRoutes } = lazyImport(
   "ItemRoutes"
 );
 
-export const publicRoutes = [
+export const protectedRoutes = [
   {
     path: "/items/*",
     element: <ItemRoutes />,
-  },
-  {
-    path: "/auth/*",
-    element: <PublicAuthRoutes />,
   },
   {
     path: "*",

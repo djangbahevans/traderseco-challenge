@@ -32,7 +32,7 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (shoe.ownerId !== req.user!.id) {
+    if (shoe.ownerId.toString() !== req.user!.id) {
       throw new NotAuthorizedError();
     }
 

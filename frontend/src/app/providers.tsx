@@ -1,8 +1,6 @@
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
-// import { AuthProvider } from "@/features/auth/contexts/AuthContext";
-// import { AuthProvider } from "@/libs/auth";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { FC, Suspense } from "react";

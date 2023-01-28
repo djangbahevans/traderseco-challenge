@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ConfirmationDialog } from "../../../components/Miscellaneous/ConfirmationDialog";
 import { queryClient } from "../../../libs/react-query";
+import { useAuth } from "../../auth/contexts/AuthContext";
 import { deleteShoe } from "../api/deleteShoe";
 import { getShoe } from "../api/getShoe";
 import { Layout } from "../components/Layout";
@@ -21,6 +22,7 @@ export const ViewItem = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const { data } = useQuery({
     queryKey: ["shoes", id],
@@ -76,15 +78,22 @@ export const ViewItem = () => {
         </Grid>
       </Grid>
       <Box sx={{ "& > :not(style)": { m: 1 } }}>
-        <Fab color="primary" aria-label="add">
-          <AddIcon />
-        </Fab>
-        <Fab color="secondary" aria-label="edit">
-          <EditIcon />
-        </Fab>
-        <Fab color="error" aria-label="delete" onClick={() => setOpen(true)}>
-          <DeleteIcon />
-        </Fab>
+        {user?.id === data?.ownerId && (
+          <Fab
+            color="secondary"
+            aria-label="edit"
+            onClick={() => {
+              navigate(`/items/${data?.id}/edit`);
+            }}
+          >
+            <EditIcon />
+          </Fab>
+        )}
+        {user?.id == data?.ownerId && (
+          <Fab color="error" aria-label="delete" onClick={() => setOpen(true)}>
+            <DeleteIcon />
+          </Fab>
+        )}
       </Box>
       <ConfirmationDialog
         onCancel={() => setOpen(false)}

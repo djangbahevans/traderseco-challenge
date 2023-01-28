@@ -72,7 +72,12 @@ const shoeSchema = new mongoose.Schema(
     },
   },
   {
-    versionKey: false,
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
   }
 );
 

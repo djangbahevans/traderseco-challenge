@@ -1,7 +1,7 @@
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ShareIcon from "@mui/icons-material/Share";
-import { Button } from "@mui/material";
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -43,7 +43,7 @@ export const ItemCard: FC<ItemDisplayProps> = ({ item }) => {
       </CardContent>
       <CardActions>
         {/* <Button size="small">Share</Button> */}
-        <Button size="small" href={`/items/${item._id}`}>
+        <Button size="small" href={`/items/${item.id}`}>
           Learn More
         </Button>
       </CardActions>

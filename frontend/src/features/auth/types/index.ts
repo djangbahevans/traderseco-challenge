@@ -1,10 +1,10 @@
 export type User = {
-  _id: string;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   items: {
-    _id: string;
+    id: string;
     name: string;
     manufacturer: string;
     description: string;

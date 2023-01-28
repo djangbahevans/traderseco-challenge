@@ -22,7 +22,7 @@ export const ViewItemList = () => {
     <Layout>
       <Grid container spacing={2}>
         {data?.map((item) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={item._id}>
+          <Grid item xs={12} sm={6} md={4} lg={3} key={item.id}>
             <ItemCard item={item} />
           </Grid>
         ))}

@@ -16,7 +16,7 @@ const authContext = createContext<IAuthContext>({
   loading: false,
   login: () =>
     Promise.resolve({
-      _id: "",
+      id: "",
       email: "",
       firstName: "",
       lastName: "",
@@ -64,6 +64,7 @@ const useAuth = () => {
       return data.user;
     },
     logout: () => {
+      storage.clearToken();
       setAuthInfo({ loading: false });
     },
   };

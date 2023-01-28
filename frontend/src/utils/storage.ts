@@ -11,6 +11,9 @@ const storage = {
   setToken: (token: string) => {
     window.localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
   },
+  clearToken: () => {
+    window.localStorage.removeItem(`${storagePrefix}token`);
+  },
   setUser: (user: User) => {
     window.localStorage.setItem(`${storagePrefix}user`, JSON.stringify(user));
   },

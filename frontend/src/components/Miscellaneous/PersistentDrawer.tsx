@@ -1,21 +1,20 @@
-// import { Add, ChevronLeft, ChevronRight } from "@mui/icons-material";
 import Add from "@mui/icons-material/Add";
 import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
-import {
-  Box,
-  CssBaseline,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText
-} from "@mui/material";
+import Visibility from "@mui/icons-material/Visibility";
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 import { styled, useTheme } from "@mui/material/styles";
 import { ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../features/auth/contexts/AuthContext";
 
 const drawerWidth = 240;
 
@@ -54,6 +53,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const PersistentDrawer = ({ open, onDrawerClose, children }: IDrawerProps) => {
+  const { user } = useAuth();
   const theme = useTheme();
   const navigate = useNavigate();
 
@@ -83,43 +83,30 @@ const PersistentDrawer = ({ open, onDrawerClose, children }: IDrawerProps) => {
           <ListItem
             button
             onClick={() => {
-              navigate("/");
+              navigate("/items");
             }}
           >
             <ListItemIcon>
-              <Add />
+              <Visibility />
             </ListItemIcon>
-            <ListItemText primary="Reservations" />
+            <ListItemText primary="View Items" />
           </ListItem>
         </List>
-        <List>
-          <ListItem
-            button
-            onClick={() => {
-              navigate("/payments");
-            }}
-          >
-            <ListItemIcon>
-              <Add />
-            </ListItemIcon>
-            <ListItemText primary="Payments" />
-          </ListItem>
-        </List>
-        {/* {user?.is_admin && (
+        {user && (
           <List>
             <ListItem
               button
               onClick={() => {
-                navigate("/users");
+                navigate("/items/add");
               }}
             >
               <ListItemIcon>
                 <Add />
               </ListItemIcon>
-              <ListItemText primary="Users" />
+              <ListItemText primary="Add Item" />
             </ListItem>
           </List>
-        )} */}
+        )}
       </Drawer>
       <Main open={open}>{children}</Main>
     </Box>
@@ -127,4 +114,3 @@ const PersistentDrawer = ({ open, onDrawerClose, children }: IDrawerProps) => {
 };
 
 export { PersistentDrawer };
-
