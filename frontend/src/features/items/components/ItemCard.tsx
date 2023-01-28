@@ -28,7 +28,7 @@ export const ItemCard: FC<ItemDisplayProps> = ({ item }) => {
           </IconButton>
         }
         title={item.name}
-        // subheader={item.updatedAt.toLocaleDateString()}
+        subheader={`$${item.price}`}
       />
       <CardMedia
         component="img"

@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { query } from "express-validator";
+import { SortOrder } from "mongoose";
 import { Shoe } from "../../../models/item";
 import { validateRequest } from "../../../utilities";
 
@@ -7,8 +8,7 @@ const router = express.Router();
 
 router.get(
   "/",
-  [
-    query("sort").optional().isString().withMessage("Sort must be a string"),
+  [query("sort").optional().isString().withMessage("Sort must be a string"),
     query("page")
       .optional()
       .isInt({ gt: 0 })
@@ -29,26 +29,32 @@ router.get(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    let query = Shoe.find({});
+    const { sort, page, limit, search, sizes } = req.query;
 
-    if (req.query.sort) {
-      const s = req.query.sort as string;
-      const sortBy = s.split(",").join(" ");
+    const query: { [key: string]: any } = {};
 
-      query = query.sort(sortBy);
+    if (search) {
+      query["$text"] = { $search: search };
     }
 
-    const page = parseInt(req.query.page as string) || 1;
-    const limit = parseInt(req.query.limit as string) || 10;
+    if (sizes) {
+      query["sizes"] = { $all: sizes };
+    }
 
-    const startIndex = (page - 1) * limit;
-    query = query.skip(startIndex).limit(limit);
+    const sortOrder: SortOrder =
+      sort && (sort as string).split(":")[1] === "desc" ? -1 : 1;
 
-    const shoes = await query.exec();
+    const sortField = sort && (sort as string).split(":")[0];
+    console.log("page: ", page);
+    console.log("limit: ", limit);
+    console.log((parseInt(page as string) - 1) * parseInt(limit as string));
+    const shoes = await Shoe.find(query)
+      .sort({ [sortField as string]: sortOrder })
+      .skip((parseInt(page as string) - 1) * parseInt(limit as string))
+      .limit(parseInt(limit as string));
 
     res.status(200).send(shoes);
   }
 );
 
 export { router as getItemsRouter };
-
