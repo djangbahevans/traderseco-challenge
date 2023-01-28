@@ -61,6 +61,7 @@ export const ViewItemList = () => {
           >
             <MenuItem value="price">Price</MenuItem>
             <MenuItem value="manufacturer">Manufacturer</MenuItem>
+            <MenuItem value="name">Name</MenuItem>
           </Select>
         </Grid>
         <Grid item xs={12} sm={6} md={4} lg={3}>

@@ -1,6 +1,4 @@
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ShareIcon from "@mui/icons-material/Share";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -10,7 +8,6 @@ import CardMedia from "@mui/material/CardMedia";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { FC } from "react";
-import { useNavigate } from "react-router-dom";
 import { Item } from "../types";
 
 type ItemDisplayProps = {
@@ -18,7 +15,6 @@ type ItemDisplayProps = {
 };
 
 export const ItemCard: FC<ItemDisplayProps> = ({ item }) => {
-  const navigate = useNavigate();
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardHeader
@@ -42,9 +38,8 @@ export const ItemCard: FC<ItemDisplayProps> = ({ item }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        {/* <Button size="small">Share</Button> */}
         <Button size="small" href={`/items/${item.id}`}>
-          Learn More
+          More
         </Button>
       </CardActions>
     </Card>
