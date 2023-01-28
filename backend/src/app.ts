@@ -5,8 +5,12 @@ import "express-async-errors";
 import { v1Router } from "./routes/v1";
 import { errorHandler, NotFoundError } from "./utilities";
 import { env } from "./utilities/env";
+import cors from "cors";
 
 const app = express();
+
+app.use(cors());
+
 app.set("trust proxy", true);
 
 app.use(json());
