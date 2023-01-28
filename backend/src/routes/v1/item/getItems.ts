@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
-import { body, query } from "express-validator";
-import jwt from "jsonwebtoken";
+import { query } from "express-validator";
 import { Shoe } from "../../../models/item";
 import { validateRequest } from "../../../utilities";
 
@@ -51,4 +50,5 @@ router.get(
   }
 );
 
-export { router as getAllItemsRouter };
+export { router as getItemsRouter };
+

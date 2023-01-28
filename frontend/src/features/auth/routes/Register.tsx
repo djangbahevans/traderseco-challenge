@@ -4,10 +4,11 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
-import { LoginForm } from "../components/LoginForm";
+import { RegisterForm } from "../components/RegisterForm";
+// import { LoginForm } from "../components/LoginForm";
 import { useAuth } from "../contexts/AuthContext";
 
-export const Login = () => {
+export const Register = () => {
   const [modalState, setModalState] = useState<{
     open: boolean;
     detail: string;
@@ -52,15 +53,15 @@ export const Login = () => {
           transform: "translate(-50%, -50%)",
         }}
       >
-        <LoginForm onLogin={
-          (message: string) => {
+        <RegisterForm
+          onRegister={(message: string) => {
             setModalState({
               open: true,
               detail: message,
               severity: "error",
             });
-          }
-        } />
+          }}
+        />
       </Box>
       <Snackbar
         autoHideDuration={6000}

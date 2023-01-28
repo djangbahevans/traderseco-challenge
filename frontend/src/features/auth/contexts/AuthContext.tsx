@@ -12,10 +12,10 @@ interface IAuthContext {
 }
 
 const authContext = createContext<IAuthContext>({
-  loading: true,
+  loading: false,
   login: () =>
     Promise.resolve({
-      id: "",
+      _id: "",
       email: "",
       firstName: "",
       lastName: "",
@@ -34,7 +34,6 @@ const useAuth = () => {
     queryKey: ["user"],
     queryFn: async () => await getCurrentUser(),
     onSuccess: ({ data }) => {
-      console.log("data", data);
       setAuthInfo({
         loading: false,
         user: data,

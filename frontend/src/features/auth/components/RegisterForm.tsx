@@ -12,23 +12,27 @@ import { useAuth } from "../contexts/AuthContext";
 import { AxiosError } from "axios";
 import { APIError } from "../types";
 
-type LoginFormInputs = {
+type RegisterFormInputs = {
   email: string;
   password: string;
+  firstName: string;
+  lastName: string;
 };
 
-const loginSchema = yup.object().shape({
+const registerSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup.string().required("Password is required"),
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
 });
 
-type LoginFormProps = {
-  onLogin: (message: string) => void;
+type RegisterFormProps = {
+  onRegister: (message: string) => void;
 };
 
-export const LoginForm: FC<LoginFormProps> = ({ onLogin }) => {
-  const { control, handleSubmit } = useForm<LoginFormInputs>({
-    resolver: yupResolver(loginSchema),
+export const RegisterForm: FC<RegisterFormProps> = ({ onRegister }) => {
+  const { control, handleSubmit } = useForm<RegisterFormInputs>({
+    resolver: yupResolver(registerSchema),
   });
 
   const { login } = useAuth();
@@ -38,10 +42,10 @@ export const LoginForm: FC<LoginFormProps> = ({ onLogin }) => {
       await login(data);
     } catch (e) {
       if (e instanceof AxiosError) {
-        onLogin((e.response?.data as APIError).errors[0].message);
+        onRegister((e.response?.data as APIError).errors[0].message);
       }
       else {
-        onLogin("Something went wrong. Please try again later.");
+        onRegister("Something went wrong. Please try again later.");
       }
     }
   });
@@ -55,15 +59,55 @@ export const LoginForm: FC<LoginFormProps> = ({ onLogin }) => {
         <Grid container>
           <Grid item xs={12}>
             <Controller
+              name="firstName"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  label="First Name"
+                  variant="outlined"
+                  type="text"
+                  sx={{ paddingBottom: 2 }}
+                  autoComplete="given-name"
+                  required
+                  fullWidth
+                  {...field}
+                  helperText={fieldState.error?.message}
+                  error={!!fieldState.error}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
+              name="lastName"
+              control={control}
+              render={({ field, fieldState }) => (
+                <TextField
+                  label="Last Name"
+                  variant="outlined"
+                  type="text"
+                  sx={{ paddingBottom: 2 }}
+                  autoComplete="family-name"
+                  required
+                  fullWidth
+                  {...field}
+                  helperText={fieldState.error?.message}
+                  error={!!fieldState.error}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Controller
               name="email"
               control={control}
               render={({ field, fieldState }) => (
                 <TextField
-                  label="Email"
+                  label="Password"
                   variant="outlined"
-                  type="text"
+                  type="password"
                   sx={{ paddingBottom: 2 }}
-                  autoComplete="email"
+                  autoComplete="current-password"
                   required
                   fullWidth
                   {...field}
@@ -102,12 +146,12 @@ export const LoginForm: FC<LoginFormProps> = ({ onLogin }) => {
       </Paper>
       <Button
         sx={{ marginTop: 1 }}
-        href="/auth/register"
+        href="/login"
         variant="text"
         fullWidth
         type="submit"
       >
-        Don't have an account?
+        Already have an account?
       </Button>
     </form>
   );

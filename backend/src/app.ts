@@ -3,7 +3,7 @@ import cookieSession from "cookie-session";
 import express from "express";
 import "express-async-errors";
 import { v1Router } from "./routes/v1";
-import { errorHandler, NotFoundError } from "./utilities";
+import { currentUser, errorHandler, NotFoundError } from "./utilities";
 import { env } from "./utilities/env";
 import cors from "cors";
 
@@ -20,6 +20,8 @@ app.use(
     secure: env.nodeEnv !== "development", // Only over HTTPS
   })
 );
+
+app.use(currentUser)
 
 app.use("/api/v1", v1Router);
 

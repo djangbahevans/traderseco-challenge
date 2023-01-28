@@ -4,7 +4,9 @@ import { env } from "../env"
 
 interface IUserPayload {
   id: string
-  email: string
+  email: string,
+  firstName: string,
+  lastName: string,
 }
 
 declare global {
@@ -20,6 +22,7 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log("currentUser middleware", req.session)
   if (!req.session?.jwt)
     return next()
 

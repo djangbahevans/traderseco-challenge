@@ -36,6 +36,20 @@ const shoeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    image: {
+      type: String,
+      required: false,
+    },
+    createdAt: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
+    updatedAt: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
     sizes: {
       type: [Number],
       required: false,
@@ -68,6 +82,9 @@ shoeSchema.pre("save", async function (done) {
   if (this.isModified("sizes")) {
     // Sort sizes in ascending order and remove duplicates
     this.set("sizes", [...new Set(this.get("sizes").sort())]);
+
+    // Set updatedAt to current date
+    this.set("updatedAt", Date.now());
   }
 
   done();

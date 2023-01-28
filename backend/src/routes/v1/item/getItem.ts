@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
 import { Shoe } from "../../../models/item";
 import {
-  NotAuthorizedError,
   NotFoundError,
   requireAuth,
   validateRequest,
@@ -9,24 +8,19 @@ import {
 
 const router = express.Router();
 
-router.delete(
+router.get(
   "/:id",
   requireAuth,
   validateRequest,
   async (req: Request, res: Response) => {
     const shoe = await Shoe.findById(req.params.id);
+
     if (!shoe) {
       throw new NotFoundError();
     }
 
-    if (shoe.ownerId.toString() !== req.user!.id) {
-      throw new NotAuthorizedError();
-    }
-
-    await shoe.remove();
-
-    res.status(201);
+    res.status(201).send(shoe);
   }
 );
 
-export { router as deleteItemRouter };
+export { router as getItemRouter };

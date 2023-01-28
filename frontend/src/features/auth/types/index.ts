@@ -1,10 +1,10 @@
 export type User = {
-  id: string;
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;
   items: {
-    id: string;
+    _id: string;
     name: string;
     manufacturer: string;
     description: string;
@@ -14,7 +14,7 @@ export type User = {
   }[];
 };
 
-export type LoginError = {
+export type APIError = {
   errors: {
     message: string;
     field?: string;

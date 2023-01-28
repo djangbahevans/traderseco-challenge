@@ -10,7 +10,7 @@ router.post(
   requireAuth,
   [
     body("name").not().isEmpty().withMessage("Name is required"),
-    body("description").not().isEmpty().withMessage("Description is required"),
+    body("description").optional().isString().withMessage("Description must be a string"),
     body("manufacturer")
       .not()
       .isEmpty()
@@ -23,7 +23,7 @@ router.post(
       .isFloat({ gt: 0 })
       .withMessage("Price must be greater than 0"),
   ],
-  validateRequest,
+  // validateRequest,
   async (req: Request, res: Response) => {
     const shoe = Shoe.build({ ...req.body, ownerId: req.user!.id });
     await shoe.save();
