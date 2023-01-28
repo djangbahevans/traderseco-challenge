@@ -10,23 +10,29 @@ const router = express.Router();
 router.post(
   "/signup",
   [
+    // Validate the email field, must be a valid email
     body("email").isEmail().withMessage("Email must be valid"),
+    // Validate the password field, must be between 4 and 20 characters
     body("password")
       .trim()
       .isLength({ min: 4, max: 20 })
       .withMessage("Password must be between 4 and 20 characters"),
+    // Validate the firstName field, must not be empty
     body("firstName").trim().notEmpty().withMessage("First name is required"),
+    // Validate the lastName field, must not be empty
     body("lastName").trim().notEmpty().withMessage("Last name is required"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const { email, password, firstName, lastName } = req.body;
 
+    // Check if a user with the given email already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       throw new BadRequestError("Email in use");
     }
 
+    // Create a new user
     const user = User.build({ email, password, firstName, lastName });
     await user.save();
 
@@ -44,9 +50,10 @@ router.post(
       }
     );
 
-    // store it on the session object
+    // Store it on the session object
     req.session = { jwt: usertJwt };
 
+    // Send back the newly created user and the JWT
     res.status(201).send({ user, token: usertJwt });
   }
 );
