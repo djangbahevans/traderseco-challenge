@@ -3,6 +3,7 @@ import { body } from "express-validator";
 import jwt from "jsonwebtoken";
 import { User } from "../../models/user";
 import { validateRequest, BadRequestError } from "../../utilities";
+import { env } from "../../utilities/env";
 
 const router = express.Router();
 
@@ -34,8 +35,10 @@ router.post(
       {
         id: user.id,
         email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
       },
-      process.env.JWT_KEY!,
+      env.jwtKey,
       {
         expiresIn: "15m",
       }

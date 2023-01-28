@@ -1,20 +1,19 @@
 import mongoose from "mongoose";
+import { env } from "./utilities/env";
 import { app } from "./app";
-import * as dotenv from "dotenv";
 
 const start = async () => {
   console.log("Starting up...");
-  dotenv.config();
 
-  if (!process.env.JWT_KEY)
+  if (!env.jwtKey)
     throw new Error("JWT_KEY environment variable must be defined");
 
-  if (!process.env.MONGO_URI)
+  if (!env.mongoUri)
     throw new Error("JWT_KEY environment variable must be defined");
 
   try {
     mongoose.set("strictQuery", true);
-    mongoose.connect(process.env.MONGO_URI,);
+    mongoose.connect(env.mongoUri);
     console.log("Connected to MongoDB");
   } catch (error) {
     console.error(error);

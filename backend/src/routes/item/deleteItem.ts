@@ -1,6 +1,11 @@
 import express, { Request, Response } from "express";
 import { Shoe } from "../../models/item";
-import { NotAuthorizedError, NotFoundError, requireAuth, validateRequest } from "../../utilities";
+import {
+  NotAuthorizedError,
+  NotFoundError,
+  requireAuth,
+  validateRequest,
+} from "../../utilities";
 
 const router = express.Router();
 
@@ -23,3 +28,5 @@ router.delete(
     res.status(201).send(shoe);
   }
 );
+
+export { router as deleteItemRouter };

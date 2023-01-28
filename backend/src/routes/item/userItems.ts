@@ -10,7 +10,9 @@ router.get(
   validateRequest,
   async (req: Request, res: Response) => {
     const shoes = await Shoe.find({ ownerId: req.params.userId });
-    
+
     res.status(200).send(shoes);
   }
 );
+
+export { router as userItemsRouter };

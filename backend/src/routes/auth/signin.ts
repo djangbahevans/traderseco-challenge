@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../../models/user";
 import { Password } from "../../services/password";
 import { validateRequest, BadRequestError } from "../../utilities";
+import { env } from "../../utilities/env";
 
 const router = express.Router();
 
@@ -36,8 +37,10 @@ router.post(
       {
         id: existingUser.id,
         email: existingUser.email,
+        firstName: existingUser.firstName,
+        lastName: existingUser.lastName,
       },
-      process.env.JWT_KEY!
+      env.jwtKey
     );
 
     // store it on the session object

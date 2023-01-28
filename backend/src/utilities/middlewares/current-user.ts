@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express"
 import jwt from "jsonwebtoken"
+import { env } from "../env"
 
 interface IUserPayload {
   id: string
@@ -23,7 +24,7 @@ export const currentUser = (
     return next()
 
   try {
-    const payload = jwt.verify(req.session.jwt, process.env.JWT_KEY!) as IUserPayload
+    const payload = jwt.verify(req.session.jwt, env.jwtKey) as IUserPayload
     req.user = payload
   } catch (error) { }
 

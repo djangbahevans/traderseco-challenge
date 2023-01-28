@@ -1,8 +1,12 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import { Shoe } from "../../models/item";
-import { requireAuth, validateRequest, NotFoundError, NotAuthorizedError } from "../../utilities";
-
+import {
+  requireAuth,
+  validateRequest,
+  NotFoundError,
+  NotAuthorizedError,
+} from "../../utilities";
 
 const router = express.Router();
 
@@ -11,9 +15,14 @@ router.put(
   requireAuth,
   [
     body("name").not().isEmpty().withMessage("Name is required"),
-    body("price").isFloat({ gt: 0 }).withMessage("Price must be greater than 0"),
+    body("price")
+      .isFloat({ gt: 0 })
+      .withMessage("Price must be greater than 0"),
     body("description").not().isEmpty().withMessage("Description is required"),
-    body("manufacturer").not().isEmpty().withMessage("Manufacturer is required"),
+    body("manufacturer")
+      .not()
+      .isEmpty()
+      .withMessage("Manufacturer is required"),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -27,9 +36,11 @@ router.put(
       throw new NotAuthorizedError();
     }
 
-    shoe.set({...req.body, ownerId: req.user!.id});
+    shoe.set({ ...req.body, ownerId: req.user!.id });
     await shoe.save();
 
     res.status(201).send(shoe);
   }
-  )
+);
+
+export { router as updateItemRouter };

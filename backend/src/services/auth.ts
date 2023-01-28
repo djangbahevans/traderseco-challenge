@@ -1,12 +1,13 @@
 import * as jwt from "jsonwebtoken";
 import { User } from "../models/user";
+import { env } from "../utilities/env";
 
-const { JWT_SECRET } = process.env;
+const { jwtKey } = env;
 
 const createSendToken = (user: any, statusCode: number, res: any) => {};
 
 const signToken = (id: string): string => {
-  return jwt.sign({ id }, JWT_SECRET!, { expiresIn: "30d" });
+  return jwt.sign({ id }, jwtKey!, { expiresIn: "30d" });
 };
 
 exports.signup = async (req: any, res: any) => {
