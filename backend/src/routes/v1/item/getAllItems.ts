@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
 import { body, query } from "express-validator";
 import jwt from "jsonwebtoken";
-import { Shoe } from "../../models/item";
-import { validateRequest } from "../../utilities";
+import { Shoe } from "../../../models/item";
+import { validateRequest } from "../../../utilities";
 
 const router = express.Router();
 

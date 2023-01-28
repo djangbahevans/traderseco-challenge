@@ -1,12 +1,12 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { Shoe } from "../../models/item";
+import { Shoe } from "../../../models/item";
 import {
   requireAuth,
   validateRequest,
   NotFoundError,
   NotAuthorizedError,
-} from "../../utilities";
+} from "../../../utilities";
 
 const router = express.Router();
 

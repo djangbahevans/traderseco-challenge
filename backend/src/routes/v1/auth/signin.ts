@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
 import jwt from "jsonwebtoken";
-import { User } from "../../models/user";
-import { Password } from "../../services/password";
-import { validateRequest, BadRequestError } from "../../utilities";
-import { env } from "../../utilities/env";
+import { User } from "../../../models/user";
+import { Password } from "../../../services/password";
+import { validateRequest, BadRequestError } from "../../../utilities";
+import { env } from "../../../utilities/env";
 
 const router = express.Router();
 

@@ -2,19 +2,7 @@ import { json } from "body-parser";
 import cookieSession from "cookie-session";
 import express from "express";
 import "express-async-errors";
-import {
-  currentUserRouter,
-  signinRouter,
-  signoutRouter,
-  signupRouter,
-} from "./routes/auth";
-import {
-  createItemRouter,
-  deleteItemRouter,
-  getAllItemsRouter,
-  updateItemRouter,
-  userItemsRouter,
-} from "./routes/item";
+import { v1Router } from "./routes/v1";
 import { errorHandler, NotFoundError } from "./utilities";
 import { env } from "./utilities/env";
 
@@ -29,15 +17,7 @@ app.use(
   })
 );
 
-app.use(currentUserRouter);
-app.use(signinRouter);
-app.use(signoutRouter);
-app.use(signupRouter);
-app.use(createItemRouter);
-app.use(deleteItemRouter);
-app.use(getAllItemsRouter);
-app.use(updateItemRouter);
-app.use(userItemsRouter);
+app.use("/api/v1", v1Router);
 
 app.all("*", () => {
   throw new NotFoundError();
@@ -46,3 +26,4 @@ app.all("*", () => {
 app.use(errorHandler);
 
 export { app };
+

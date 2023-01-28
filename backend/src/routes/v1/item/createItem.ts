@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { body } from "express-validator";
-import { Shoe } from "../../models/item";
-import { requireAuth, validateRequest } from "../../utilities";
+import { Shoe } from "../../../models/item";
+import { requireAuth, validateRequest } from "../../../utilities";
 
 const router = express.Router();
 
