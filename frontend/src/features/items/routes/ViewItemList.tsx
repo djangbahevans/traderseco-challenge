@@ -12,6 +12,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Button from "@mui/material/Button";
 
 export const ViewItemList = () => {
+  // Setting query states. I should probably use useReducer here.
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState<"price" | "manufacturer" | "name">(
     "price"
@@ -21,7 +22,7 @@ export const ViewItemList = () => {
   const [limit, setLimit] = useState(10);
 
   const { data } = useQuery({
-    queryKey: ["shoes", search, orderBy, order],
+    queryKey: ["shoes", search, orderBy, order, limit, page],
     queryFn: ({ signal }) => {
       const items = getShoes({
         search,
