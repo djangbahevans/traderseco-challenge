@@ -22,12 +22,13 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log("currentUser middleware", req.session)
-  if (!req.session?.jwt)
+  // token should be in the header or in the session
+  const token = req.headers?.authorization || req.session?.jwt
+  if (!token)
     return next()
 
   try {
-    const payload = jwt.verify(req.session.jwt, env.jwtKey) as IUserPayload
+    const payload = jwt.verify(token, env.jwtKey) as IUserPayload
     req.user = payload
   } catch (error) { }
 

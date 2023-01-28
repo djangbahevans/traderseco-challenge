@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { loginWithEmailAndPassword } from "../api/login";
 import { getCurrentUser } from "../api/getCurrentUser";
 import { LoginCredentials, User } from "../types";
+import storage from "../../../utils/storage";
 
 interface IAuthContext {
   loading: boolean;
@@ -36,7 +37,7 @@ const useAuth = () => {
     onSuccess: ({ data }) => {
       setAuthInfo({
         loading: false,
-        user: data,
+        user: data.currentUser,
       });
     },
     onError: () => {
@@ -52,14 +53,15 @@ const useAuth = () => {
     ...authInfo,
     login: async ({ email, password }: LoginCredentials) => {
       const { data } = await loginWithEmailAndPassword({ email, password });
+      storage.setToken(data.token);
 
       setAuthInfo({
         loading: false,
         ...data,
-        user: data,
+        user: data.user,
       });
 
-      return data;
+      return data.user;
     },
     logout: () => {
       setAuthInfo({ loading: false });
@@ -72,7 +74,6 @@ interface IProviderProps {
 }
 export const AuthProvider = ({ children }: IProviderProps) => {
   const auth = useAuth();
-  auth.login;
 
   return (
     <authContext.Provider value={auth}>

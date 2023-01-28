@@ -1,8 +1,16 @@
-import { User } from "@/features/auth";
+import { User } from "../features/auth";
 
 const storagePrefix = "traders_eco_";
 
 const storage = {
+  getToken: (): string => {
+    return JSON.parse(
+      window.localStorage.getItem(`${storagePrefix}token`) as string
+    );
+  },
+  setToken: (token: string) => {
+    window.localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
+  },
   setUser: (user: User) => {
     window.localStorage.setItem(`${storagePrefix}user`, JSON.stringify(user));
   },

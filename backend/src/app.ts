@@ -17,7 +17,8 @@ app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: env.nodeEnv !== "development", // Only over HTTPS
+    secure: env.nodeEnv !== "development", // Only over HTTPS,
+    sameSite: "none",
   })
 );
 
