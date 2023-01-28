@@ -84,7 +84,6 @@ const AppBar = styled(MuiAppBar, {
 
 const PrimarySearchAppBar = ({ onMenuClick, open }: AppBarProps) => {
   const { logout, user } = useAuth();
-  console.log(user);
   const navigate = useNavigate();
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
@@ -138,9 +137,7 @@ const PrimarySearchAppBar = ({ onMenuClick, open }: AppBarProps) => {
             aria-controls="primary-search-account-menu"
             aria-haspopup="true"
             color="inherit"
-            onClick={() => {
-              navigate("/auth/login");
-            }}
+            href="/auth/login"
           >
             <Login />
           </IconButton>
@@ -206,9 +203,7 @@ const PrimarySearchAppBar = ({ onMenuClick, open }: AppBarProps) => {
                   size="large"
                   aria-label="login"
                   color="inherit"
-                  onClick={() => {
-                    navigate("/auth/login");
-                  }}
+                  href="/auth/login"
                 >
                   <Login />
                 </IconButton>
@@ -235,4 +230,3 @@ const PrimarySearchAppBar = ({ onMenuClick, open }: AppBarProps) => {
 };
 
 export { PrimarySearchAppBar };
-
