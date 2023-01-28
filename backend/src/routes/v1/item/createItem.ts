@@ -6,7 +6,7 @@ import { requireAuth, validateRequest } from "../../../utilities";
 const router = express.Router();
 
 router.post(
-  "api/v1/shoes",
+  "/",
   requireAuth,
   [
     body("name").not().isEmpty().withMessage("Name is required"),

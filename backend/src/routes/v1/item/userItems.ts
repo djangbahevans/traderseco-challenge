@@ -5,7 +5,7 @@ import { validateRequest } from "../../../utilities";
 const router = express.Router();
 
 router.get(
-  "api/v1//shoes/:userId",
+  "/:userId",
   [],
   validateRequest,
   async (req: Request, res: Response) => {

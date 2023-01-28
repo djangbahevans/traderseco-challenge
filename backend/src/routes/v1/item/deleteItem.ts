@@ -10,7 +10,7 @@ import {
 const router = express.Router();
 
 router.delete(
-  "api/v1/shoes/:id",
+  "/:id",
   requireAuth,
   validateRequest,
   async (req: Request, res: Response) => {

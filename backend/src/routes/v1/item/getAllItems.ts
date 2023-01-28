@@ -7,7 +7,7 @@ import { validateRequest } from "../../../utilities";
 const router = express.Router();
 
 router.get(
-  "api/v1/shoes",
+  "/",
   [
     query("sort").optional().isString().withMessage("Sort must be a string"),
     query("page")

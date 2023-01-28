@@ -9,7 +9,7 @@ import { env } from "../../../utilities/env";
 const router = express.Router();
 
 router.post(
-  "/api/users/signin",
+  "/signin",
   [
     body("email").isEmail().withMessage("Email must be valid"),
     body("password")

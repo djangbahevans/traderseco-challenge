@@ -4,7 +4,7 @@ import { itemRouter } from "./item";
 
 const router = express.Router();
 
-router.use("users", authRouter);
-router.use("items", itemRouter);
+router.use("/users", authRouter);
+router.use("/shoes", itemRouter);
 
 export { router as v1Router };

@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.put(
-  "api/v1/shoes/:id",
+  "/:id",
   requireAuth,
   [
     body("name").not().isEmpty().withMessage("Name is required"),

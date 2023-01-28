@@ -3,7 +3,7 @@ import { currentUser } from "../../../utilities";
 
 const router = express.Router();
 
-router.get("/api/users/currentuser", currentUser, (req, res) => {
+router.get("/currentuser", currentUser, (req, res) => {
   res.send({ currentUser: req.user });
 });
 
