@@ -3,7 +3,6 @@ import ChevronLeft from "@mui/icons-material/ChevronLeft";
 import ChevronRight from "@mui/icons-material/ChevronRight";
 import Visibility from "@mui/icons-material/Visibility";
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -59,7 +58,6 @@ const PersistentDrawer = ({ open, onDrawerClose, children }: IDrawerProps) => {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <CssBaseline />
       <Drawer
         sx={{
           width: drawerWidth,
@@ -114,3 +112,4 @@ const PersistentDrawer = ({ open, onDrawerClose, children }: IDrawerProps) => {
 };
 
 export { PersistentDrawer };
+
