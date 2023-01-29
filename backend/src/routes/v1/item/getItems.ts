@@ -69,10 +69,6 @@ router.get(
     // Determine sort field based on query parameter
     const sortField = sort && (sort as string).split(":")[0];
 
-    console.log("page: ", page);
-    console.log("limit: ", limit);
-    console.log((parseInt(page as string) - 1) * parseInt(limit as string));
-
     // Retrieve shoes from the database based on query, sort, skip, and limit options
     const shoes = await Shoe.find(query)
       .sort({ [sortField as string]: sortOrder })

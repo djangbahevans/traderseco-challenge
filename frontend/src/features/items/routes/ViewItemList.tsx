@@ -44,7 +44,7 @@ export const ViewItemList = () => {
     <Layout>
       <TextField
         id="outlined-search"
-        label="Search field"
+        label="Search"
         type="search"
         onChange={(e) => setSearch(e.target.value)}
         fullWidth
